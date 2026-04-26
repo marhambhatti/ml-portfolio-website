@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Brain, TrendingUp, Award, Users, Zap, Code } from 'lucide-react';
@@ -87,6 +87,7 @@ const StatsSection: React.FC = () => {
         }, stepDuration);
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   return (

@@ -35,6 +35,7 @@ const ModelsSection: React.FC = () => {
 
   useEffect(() => {
     filterAndSortModels();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [models, searchTerm, sortBy]);
 
   const fetchModels = async () => {
