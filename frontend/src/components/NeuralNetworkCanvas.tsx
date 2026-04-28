@@ -29,8 +29,9 @@ const NeuralNetworkCanvas: React.FC = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Initialize nodes
-    const nodeCount = 50;
+    // Initialize nodes - reduce count for mobile
+    const isMobile = window.innerWidth < 768;
+    const nodeCount = isMobile ? 25 : 50;
     const nodes: Node[] = [];
     
     for (let i = 0; i < nodeCount; i++) {
@@ -51,7 +52,7 @@ const NeuralNetworkCanvas: React.FC = () => {
         const dy = nodes[i].y - nodes[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 150) {
+        if (distance < (isMobile ? 100 : 150)) {
           nodes[i].connections.push(j);
           nodes[j].connections.push(i);
         }
@@ -84,8 +85,8 @@ const NeuralNetworkCanvas: React.FC = () => {
           const dy = node.y - otherNode.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 150) {
-            const opacity = 1 - distance / 150;
+          if (distance < (isMobile ? 100 : 150)) {
+            const opacity = 1 - distance / (isMobile ? 100 : 150);
             ctx.strokeStyle = `rgba(0, 212, 255, ${opacity * 0.3})`;
             ctx.lineWidth = 1;
             ctx.beginPath();

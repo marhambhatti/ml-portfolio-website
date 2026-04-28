@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
-import ModelsSection from './components/ModelsSection';
-import AboutSection from './components/AboutSection';
 import StatsSection from './components/StatsSection';
-import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
+
+// Lazy load heavy components
+const ModelsSection = lazy(() => import('./components/ModelsSection'));
+const AboutSection = lazy(() => import('./components/AboutSection'));
+const ContactSection = lazy(() => import('./components/ContactSection'));
 
 function App() {
   useEffect(() => {
@@ -37,10 +39,16 @@ function App() {
   return (
     <div className="min-h-screen bg-navy-dark text-white">
       <Header />
-      <ModelsSection />
-      <AboutSection />
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-white">Loading...</div>}>
+        <ModelsSection />
+      </Suspense>
+      <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-white">Loading...</div>}>
+        <AboutSection />
+      </Suspense>
       <StatsSection />
-      <ContactSection />
+      <Suspense fallback={<div className="min-h-[400px] flex items-center justify-center text-white">Loading...</div>}>
+        <ContactSection />
+      </Suspense>
       <Footer />
     </div>
   );
